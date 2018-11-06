@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/Kukilika/Analytics/issues"
   },
-  "homepage": "https://github.com/Kukilika/Analytics#readme"
+  "homepage": "https://github.com/Kukilika/Analytics#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ip": "^1.1.5",
+    "request": "^2.88.0",
+    "upper-case": "^1.1.3",
+    "useragent": "^2.3.0",
+    "yamlparser": "0.0.2"
+  }
 }
