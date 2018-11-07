@@ -6,7 +6,7 @@ var ipCountry = require('ip-country');
 
 useragent(true); // Enable useragent
 
-// Initiate the module with custom options
+// Initiate the ipCountry module with custom options
 ipCountry.init({
     fallbackCountry: 'Not found',
     exposeInfo: false
@@ -24,17 +24,19 @@ http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
 
     //Show user information
+    res.write('<body bgcolor="#161616" style="font-family: Tahoma, Arial, Helvetica, Sans-Serif; font-size: 8pt; color: white; padding: 5pt; text-align: center">');
     res.write('Browser : ' + userBrowser);
-    res.write('<br/>');
+    res.write('<br/><br/>');
     res.write('OS : ' + userOS);
-    res.write('<br/>');
-    res.write('Country: ' + userCountry);
-    res.write('<br/>');
+    res.write('<br/><br/>');
+    res.write('Country : ' + userCountry);
+    res.write('<br/><br/>');
     res.write('IP : ' + userIP);
-    res.write('<br/>');
-    res.write('Page load time: ');
+    res.write('<br/><br/>');
+    res.write('Page load time : ');
     var pageEnd = new Date(Date.now() - pageStart); // Get page load time
     res.write(pageEnd.getMilliseconds() + ' ms');
+    res.write('</body>')
     res.end();
 
 }).listen(8080);
