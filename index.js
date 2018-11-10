@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const app = express();
-mongoose.connect('mongodb://localhost/mydatabase');
+mongoose.connect('mongodb://127.0.0.1/mydatabase');
 var Schema = mongoose.Schema;
 
 const db = mongoose.connection;
@@ -36,8 +36,9 @@ m.save(function(error){
 
 
 app.get('/get', function (req, res) {
-    console.log(example.find())
-    res.send(JSON.stringify(example.find()));
+    mongoose.model('Example').find(function(error,example){
+        res.send(example);
+    })
 });
 
 app.listen(process.env.PORT || 8080);
