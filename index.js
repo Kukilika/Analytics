@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
-
+const path = require('path');
 const express = require('express');
-
+const bodyParser = require("body-parser");
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+
 mongoose.connect('mongodb://127.0.0.1/mydatabase');
 var Schema = mongoose.Schema;
 
@@ -19,20 +26,18 @@ var exemplu = new Schema ({
 
 var example = mongoose.model('Example', exemplu);
 
-var m = new example;
+example.remove({},()=>{
+   // var m = new example;
 
-m.id = 1;
-m.name = "Negura";
-m.prename = "Andi-Mihai";
-m.phoneNumber = "0736115363";
-m.steph = false;
+    // m.save(function(error){
+    //     console.log("your m have been saved");
+    //     if(error){
+    //         console.log(error);
+    //     }
+    // })
+} );
 
-m.save(function(error){
-    console.log("your m have been saved");
-    if(error){
-        console.log(error);
-    }
-})
+
 
 
 app.get('/get', function (req, res) {
@@ -40,5 +45,21 @@ app.get('/get', function (req, res) {
         res.send(example);
     })
 });
+
+app.get('/test', (req, res) => {
+    res.sendfile(path.join(__dirname, "share/test.html"));
+})
+
+
+app.get('/collect.js', (req, res) => {
+    res.sendfile(path.join(__dirname, "share/collect.js"));
+})
+
+
+app.post('/collect', (req, res) => {
+    console.log(req.body);
+    res.json({status:"Ok"});
+})
+
 
 app.listen(process.env.PORT || 8080);

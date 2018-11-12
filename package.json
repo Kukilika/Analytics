@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Kukilika/Analytics#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "ip": "^1.1.5",
     "ip-country": "^1.0.2",
