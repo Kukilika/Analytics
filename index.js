@@ -17,7 +17,7 @@ const db = mongoose.connection;
 db.on("error",console.log);
 
 var exemplu = new Schema ({ 
-    id: Number,
+    _id: Number,
     timeOpened: String,
     timeZone: String,
     pageon: String,
@@ -32,9 +32,6 @@ var exemplu = new Schema ({
     browserPlatform: String,
     javaEnabled: String,
     dataCookiesEnabled: String,
-    dataCookies1: String,
-    dataCookies2: String,
-    dataStorage: String,
     sizeScreenW: Number,
     sizeScreenH: Number,
     sizeDocW: Number,
@@ -49,24 +46,21 @@ var exemplu = new Schema ({
 
 var example = mongoose.model('Example', exemplu);
 
-example.remove({},()=>{
-   // var m = new example;
-    // m.save(function(error){
-    //     console.log("your m have been saved");
-    //     if(error){
-    //         console.log(error);
-    //     }
-    // })
-} );
+// example.remove({},()=>{
+//    // var m = new example;
+//     // m.save(function(error){
+//     //     console.log("your m have been saved");
+//     //     if(error){
+//     //         console.log(error);
+//     //     }
+//     // })
+// } );
 
 
 //insert an object to db
-app.post('/create', (req, res)=>{
-    let newObj = new example;
-    newObj.id = 1;
-    Object.assign(newObj, req.body);
-    res.send("Ok");
-})
+app.post('/create', function(req, res) {
+    
+});
 
 
 //read
@@ -87,7 +81,20 @@ app.get('/collect.js', (req, res) => {
 
 
 app.post('/collect', (req, res) => {
-    console.log(req.body);
+    let newObj = new example;
+    newObj._id = 1;
+    newObj = Object.assign(newObj, req.body);
+    Object.keys(newObj).forEach(key =>{
+        if(!newObj[key]){
+            delete(newObj[key]);
+        }
+    })
+    newObj.save(function(error,data){
+        console.log("New object saved!")
+        if(error){
+            console.log(error);
+        }
+    })
     res.json({status:"Ok"});
 })
 
