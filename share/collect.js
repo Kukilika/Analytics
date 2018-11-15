@@ -1,7 +1,3 @@
-/**
- * 
- * 
- */
 let collected = {};
 
  window.addEventListener("load",()=>{
