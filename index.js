@@ -83,6 +83,23 @@ app.get('/update', function (req, res) {
 
 });
 
+
+app.get('/delete',function(req,res){
+    let id = req.query.id;
+    
+    example.findById(id, function(error,object){
+        if(error){
+            console.log(error);
+        }else{
+            example.deleteOne({_id:id},function(error){
+                console.log(error);
+            })
+        }
+    })
+
+    res.send("Done!");
+})
+
 app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname, "share/test.html"));
 })
