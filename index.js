@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
+var request = require('request');
+const fetch = require('node-fetch');
 const app = express();
 
 app.use(bodyParser.json());
@@ -45,12 +47,43 @@ var exemplu = new Schema ({
 
 var example = mongoose.model('Example', exemplu);
 
+
 // Get all db records
 app.get('/get', function (req, res) {
     example.find(function(error,result){
         res.send(result);
-    })
+        //console.log(result.length);
+        });
 });
+
+// module.exports = {
+//     getTest:function(){
+//         let returnValue = 1;
+//         fetch("http://localhost:8080/get")
+//         .then(res=>res.json())
+//         .then(function(r){
+//             returnValue = r.length;
+//             console.log(r.length);
+//         })
+//         return returnValue;
+//     }
+// }
+
+function getTest(){
+    return new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/get")
+        .then(res=>res.json())
+        .then(function(r){
+            resolve(r.length)
+            console.log(r.length);
+        })
+        .catch(error => {
+            reject(error);
+        }) 
+    })
+}
+
+module.exports.getTest = getTest;
 
 // Update record in db
 app.get('/update', function (req, res) {
