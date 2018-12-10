@@ -1,19 +1,90 @@
 const assert = require('chai').assert;
-const index = require('../index');
-const getTest = require('../index').getTest;
+const fetch = require('node-fetch');
+const testData = require('./testData');
 
-describe('Index',function(){
-    it('app should return a number',function(){
-        // let result = getTest().then
-        //console.log(result);
 
-        getTest()
-        .then(result => {
-            assert.equal(result,4)
+function insertTestData(){
+    return new Promise((resolve, reject)=>{
+        fetch("http://localhost:8080/collect", {
+            method:"post",
+            body:JSON.stringify(testData.collect1),
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+        .then(res=>{
+            return res.json();
+        })
+        .then(data=>{
+            resolve(data);
+        })
+        .catch(function(error){
+            reject(error);
+        });
+    })
+}
+
+
+
+
+function getTest(){
+    return new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/get")
+        .then(res=>res.json())
+        .then(function(r){
+            resolve(r.length)
         })
         .catch(error => {
-            assert.fail(error);
+            reject(error);
+            
+        }) 
+    })
+}
+
+describe('Index',function(){
+    let initialCount = Infinity;
+    it('should get initial count of database objects',function(done){
+        getTest()
+        .then(result =>{
+            if(typeof result === 'number'){
+                initialCount = result;
+                done();
+            }else{
+                done("Initial count not a numebr");
+            }
         })
-        // assert.equal(result,4);
+        .catch(error => {
+            done(error);
+        })
+    })
+    
+    it('should insert a test object',function(done){
+        insertTestData()
+        .then(result =>{
+            if(result.status == "Ok"){
+                done();
+            }else{
+                done("Status not ok");
+            }
+        })
+        .catch(error => {
+            done(error);
+        })
+    })
+    it('should return a number',function(done){
+        getTest()
+        .then(finalCount => {
+            if(finalCount >= initialCount + 1){
+                done();
+            }else{
+                done("Final count did not increase");
+            }
+        })
+        .catch(error => {
+            done(error);
+        })
     });
 });
+

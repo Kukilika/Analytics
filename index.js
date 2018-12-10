@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
+const morgan = require('morgan');
 var request = require('request');
-const fetch = require('node-fetch');
-const app = express();
 
+const app = express();
+app.use(morgan());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -48,29 +49,16 @@ var exemplu = new Schema ({
 var example = mongoose.model('Example', exemplu);
 
 
+
 // Get all db records
 app.get('/get', function (req, res) {
     example.find(function(error,result){
         res.send(result);
-        //console.log(result.length);
         });
 });
 
-function getTest(){
-    return new Promise((resolve, reject) => {
-        fetch("http://localhost:8080/get")
-        .then(res=>res.json())
-        .then(function(r){
-            resolve(r.length)
-            console.log(r.length);
-        })
-        .catch(error => {
-            reject(error);
-        }) 
-    })
-}
 
-module.exports.getTest = getTest;
+// module.exports.getTest = getTest;
 
 // Update record in db
 app.get('/update', function (req, res) {
@@ -144,11 +132,15 @@ app.post('/collect', (req, res) => {
     newExample.save(function(error,data){ // Add record in db
         console.log("New object saved!")
         if(error){
+            res.json({status:"NotOk"});
             console.log(error);
+        }else{
+            res.json({status:"Ok"});
         }
     })
 
-    res.json({status:"Ok"});
 })
 
-app.listen(process.env.PORT || 8080); // Start process on port 8080
+app.listen(process.env.PORT || 8080, function(){
+    console.log(`listening on ${process.env.PORT || 8080}`)
+}); // Start process on port 8080
