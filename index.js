@@ -56,19 +56,6 @@ app.get('/get', function (req, res) {
         });
 });
 
-// module.exports = {
-//     getTest:function(){
-//         let returnValue = 1;
-//         fetch("http://localhost:8080/get")
-//         .then(res=>res.json())
-//         .then(function(r){
-//             returnValue = r.length;
-//             console.log(r.length);
-//         })
-//         return returnValue;
-//     }
-// }
-
 function getTest(){
     return new Promise((resolve, reject) => {
         fetch("http://localhost:8080/get")
