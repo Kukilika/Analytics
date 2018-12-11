@@ -68,23 +68,27 @@ app.get('/update', function (req, res) {
 
     if(id == null || Object.keys(id).length === 0) { // Check if giver parameters are valid
         console.log('Invalid id');
+        //res.json({status:"NotOk"});
     } else if(browser == null || Object.keys(browser).length === 0) {
         console.log('Invalid browser name!');
+        //res.json({status:"NotOk"});
     } else {
         example.findById(id, function(error,result){ // Check if record exists
             if(error){
                 console.log(error);
+               // res.json({status:"NotOk"});
             } else {
                 example.updateOne({"_id": id}, {$set: { browserName: browser} },function(error,result){ // Update the record
                     if(error) 
                        console.log(error);
+                      // res.json({status:"NotOk"});
                 })
             }
         })
     }
 
     console.log('Obj has been updated');
-    res.end();
+    res.json({status:"Ok"});
 
 });
 

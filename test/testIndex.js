@@ -37,14 +37,41 @@ function getTest(){
             resolve(r.length)
         })
         .catch(error => {
-            reject(error);
-            
+            reject(error);  
         }) 
     })
 }
 
-describe('Index',function(){
+function getLastInsertedObject(){
+    return new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/get")
+        .then(res=>res.json())
+        .then(object =>{
+            resolve(object[object.length - 1])
+        })
+        .catch(error => {
+            reject(error);
+        })
+    })
+}
+
+function getUpdate(id, newName){
+    return new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/update?id=" + id + "&browser=" + newName)
+        .then(res => res.json())
+        .then(data => {
+            resolve(data);
+        })
+        .catch(function(error){
+            reject(error);
+        })
+    })
+}
+
+//testing the get endpoint and the insert
+describe('Get',function(){
     let initialCount = Infinity;
+    let insertedObject = {};
     it('should get initial count of database objects',function(done){
         getTest()
         .then(result =>{
@@ -73,7 +100,7 @@ describe('Index',function(){
             done(error);
         })
     })
-    it('should return a number',function(done){
+    it('should get the number of objects inside db after the insert',function(done){
         getTest()
         .then(finalCount => {
             if(finalCount >= initialCount + 1){
@@ -86,5 +113,25 @@ describe('Index',function(){
             done(error);
         })
     });
+    it("yep",function(done){
+        getLastInsertedObject()
+        .then(obj => {
+            getUpdate(obj._id, "pateu")
+            .then(result => {
+                if(result.status == "Ok"){
+                    done();
+                }else{
+                    done("Couldnt update the test object");
+                }
+            })
+            .then(error => {
+               // done(error);
+                console.log(error);
+            })
+        })
+        .catch(error => {
+            //done(error);
+            console.log(error);
+        })
+    });
 });
-
