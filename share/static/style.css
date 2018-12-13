@@ -1,0 +1,47 @@
+a.foot:link {
+	font-size: 2.1em;
+	padding-left: 0.8em;
+    color: #9a9ea5;
+}
+
+a.foot:visited {
+	font-size: 2.1em;
+	padding-left: 0.8em;
+    color: #9a9ea5;
+}
+
+a.foot:hover {
+	font-size: 2.1em;
+	padding-left: 0.8em;
+    color: white;
+}
+
+a.foot:active {
+	font-size: 2.1em;
+	padding-left: 0.8em;
+    color: #9a9ea5;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 1.3em; 
+  text-align: center
+}
+
+img.working{
+    padding-top: 20pt;
+	width: 15%;
+	height: auto;
+    display: block;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.working{
+    font-family: 'Special Elite', cursive;
+    font-size: 21px;
+    color: white;
+	text-align: center;
+}

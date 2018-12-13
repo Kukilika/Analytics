@@ -55,20 +55,26 @@ var exemplu = new Schema ({
 
 var example = mongoose.model('Example', exemplu);
 
-// View chart
-app.get('/show', (req, res) => {
+// View home
+app.get('/', (req, res) => {
     example.find(function(error,result){
-        res.render('show.ejs', { data : result });
+        res.render('home.ejs');
     })
 })
 
-// Get all db records
-app.get('/get', function (req, res) {
+// View charts
+app.get('/charts', (req, res) => {
     example.find(function(error,result){
-        res.send(result);
-        });
-});
+        res.render('charts.ejs', { data : result });
+    })
+})
 
+// View Data
+app.get('/data', function (req, res) {
+    example.find(function(error,result){
+        res.render('view_data.ejs', { data : result });
+    });
+});
 
 // module.exports.getTest = getTest;
 

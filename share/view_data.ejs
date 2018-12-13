@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+  <title>View Data</title>
+  <% include partials/head %>
+</head>
+<body style = "background-color: #161616">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/charts">View Charts</a></li>
+            <li class="active"><a href="/data">My Data</a></li>
+            <li><a href="#">Page 3</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div style="color: #9a9ea5">
+<%= JSON.stringify(data) %>
+</div>
+
+<% include partials/footer %>
+</body>
+</html>
