@@ -73,3 +73,8 @@ a.delete:active {
     color: #7f7f7f;
     text-decoration: none;
 }
+
+img.logo {
+    padding-top: 10pt; 
+    padding-right: 5pt;
+}
