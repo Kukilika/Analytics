@@ -6,7 +6,14 @@
       function deleteEntry(id) {
           if (confirm("Do you want to delete this entry?") == true)
              window.location.href = '/delete?id='+id;
-          }
+      }
+
+      function updateEntry(id) {
+        var name = prompt("Please enter the browser name: ", "");
+        if (name != null && name != "") {
+            window.location.href = '/update?id='+id+'&browser='+name;
+        } 
+      }
   </script>
 </head>
 <body style = "background-color: #161616">
@@ -34,6 +41,7 @@
           <th>Id</th>
           <th>Date</th>
           <th>Referrer</th>
+          <th>Browser Name</th>
           <th>Java Enabled</th>
           <th>Screen Size</th>
           <th>Action</th>
@@ -45,10 +53,12 @@
            <td><%= data[i]._id %></td>
            <td><%= data[i].timeOpened %></td>
            <td><%= data[i].referrer %></td>
+           <td><%= data[i].browserName %></td>
            <td><%= data[i].javaEnabled %></td>
            <td><%= data[i].sizeScreenW %>x<%= data[i].sizeScreenH %></td>
            <td>
                 <a class="delete" href="javascript:void(0);" onclick="deleteEntry('<%= data[i]._id %>')" title="Delete"><i class="material-icons">clear</i></a>
+                <a class="update" href="javascript:void(0);" onclick="updateEntry('<%= data[i]._id %>')" title="Update"><i class="material-icons">update</i></a>
            </td>
          </tr>
       <% } %>

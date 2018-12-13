@@ -76,6 +76,13 @@ app.get('/data', function (req, res) {
     });
 });
 
+// Get all db records
+app.get('/get', function (req, res) {
+    example.find(function(error,result){
+        res.send(result);
+    })
+});
+
 // module.exports.getTest = getTest;
 
 // Update record in db

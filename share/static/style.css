@@ -74,6 +74,26 @@ a.delete:active {
     text-decoration: none;
 }
 
+a.update:link {
+    color: #7f7f7f;
+    text-decoration: none;
+}
+
+a.update:visited {
+    color: #7f7f7f;
+    text-decoration: none;
+}
+
+a.update:hover {
+    color: rgb(89, 89, 233);
+    text-decoration: none;
+}
+
+a.update:active {
+    color: #7f7f7f;
+    text-decoration: none;
+}
+
 img.logo {
     padding-top: 10pt; 
     padding-right: 5pt;
