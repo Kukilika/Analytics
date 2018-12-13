@@ -68,8 +68,21 @@ function getUpdate(id, newName){
     })
 }
 
-//testing the get endpoint and the insert
-describe('Get',function(){
+function deleteTest(id){
+    return new Promise((resolve,reject) => {
+        fetch("http://localhost:8080/delete?id=" + id)
+        .then(res =>res.json())
+        .then(data => {
+            resolve(data);
+        })
+        .catch(function(error){
+            reject(error);
+        })
+    })
+}
+
+//testing get, insert, update, delete
+describe('Get/insert/update/delete',function(){
     let initialCount = Infinity;
     let insertedObject = {};
     it('should get initial count of database objects',function(done){
@@ -113,10 +126,10 @@ describe('Get',function(){
             done(error);
         })
     });
-    it("yep",function(done){
+    it("should update the browser name of the last inserted object into (andal)",function(done){
         getLastInsertedObject()
         .then(obj => {
-            getUpdate(obj._id, "pateu")
+            getUpdate(obj._id, "andal")
             .then(result => {
                 if(result.status == "Ok"){
                     done();
@@ -134,4 +147,20 @@ describe('Get',function(){
             console.log(error);
         })
     });
+    it("should delete the last inserted object (browser name: andal)",function(done){
+        getLastInsertedObject()
+        .then(obj => {
+            deleteTest(obj._id)
+            .then(result => {
+                if(result.status == "Ok"){
+                    done();
+                }else{
+                    done("could not delete the object");
+                }
+            })
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    })
 });

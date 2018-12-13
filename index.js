@@ -67,7 +67,7 @@ app.get('/update', function (req, res) {
     var browser = req.query.browser;
 
     if(id == null || Object.keys(id).length === 0) { // Check if giver parameters are valid
-        console.log('Invalid id');
+        console.log('Invalid id');  
         //res.json({status:"NotOk"});
     } else if(browser == null || Object.keys(browser).length === 0) {
         console.log('Invalid browser name!');
@@ -95,20 +95,30 @@ app.get('/update', function (req, res) {
 // Delete record from db
 app.get('/delete',function(req,res){
     let id = req.query.id;
-    
+    let ok = 1;
+
     example.findById(id, function(error,object){ // Check if record exists
         if(error){
-            console.log(error);
+            ok = 0;
+            res.json({status:"NotOk"});
+            //console.log(error);
         }else{
             example.deleteOne({_id:id},function(error){ // Delete the record from db
                 if(error)
-                   console.log(error);
+                    if(ok == 1){
+                        ok = 0;
+                        res.json({status:"Ok"});
+                    }
+                   //console.log(error);
             })
         }
     })
-
-    console.log('Obj has been deleted');
-    res.end();
+    if (ok == 1){
+        res.json({status:"Ok"});
+        //console.log('Obj has been deleted');
+    }
+    //res.end();
+    res.json({status:"Ok"});
 
 })
 
