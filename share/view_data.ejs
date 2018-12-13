@@ -2,6 +2,12 @@
 <head>
   <title>View Data</title>
   <% include partials/head %>
+  <script>
+      function deleteEntry(id) {
+          if (confirm("Do you want to delete this entry?") == true)
+             window.location.href = '/delete?id='+id;
+          }
+  </script>
 </head>
 <body style = "background-color: #161616">
 
@@ -14,14 +20,47 @@
             <li><a href="/">Home</a></li>
             <li><a href="/charts">View Charts</a></li>
             <li class="active"><a href="/data">My Data</a></li>
-            <li><a href="#">Page 3</a></li>
+            <li><a href="/test">Collect</a></li>
         </ul>
     </div>
 </nav>
 
+<div class="container" style="color: #9a9ea5">
+    <h2>My data</h2>
+    <p>This is your website data which was collected so far:</p>            
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Date</th>
+          <th>Referrer</th>
+          <th>Java Enabled</th>
+          <th>Screen Size</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% for(var i=0; i < data.length; i++) { %>
+         <tr>
+           <td><%= data[i]._id %></td>
+           <td><%= data[i].timeOpened %></td>
+           <td><%= data[i].referrer %></td>
+           <td><%= data[i].javaEnabled %></td>
+           <td><%= data[i].sizeScreenW %>x<%= data[i].sizeScreenH %></td>
+           <td>
+                <a class="delete" href="javascript:void(0);" onclick="deleteEntry('<%= data[i]._id %>')" title="Delete"><i class="material-icons">clear</i></a>
+           </td>
+         </tr>
+      <% } %>
+      </tbody>
+    </table>
+</div>
+
+<!--
 <div style="color: #9a9ea5">
 <%= JSON.stringify(data) %>
 </div>
+-->
 
 <% include partials/footer %>
 </body>

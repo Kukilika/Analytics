@@ -137,7 +137,6 @@ app.get('/delete',function(req,res){
     }
     //res.end();
     res.json({status:"Ok"});
-
 })
 
 // Insert record in db
