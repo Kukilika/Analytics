@@ -3,10 +3,17 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
 const morgan = require('morgan');
+const ejs = require('ejs');
 var request = require('request');
 
 const app = express();
-app.use(morgan());
+
+app.use(express.static(__dirname + '/share'));
+app.set('views', __dirname + '/share');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -48,7 +55,12 @@ var exemplu = new Schema ({
 
 var example = mongoose.model('Example', exemplu);
 
-
+// View chart
+app.get('/show', (req, res) => {
+    example.find(function(error,result){
+        res.render('show.ejs', { data : result });
+    })
+})
 
 // Get all db records
 app.get('/get', function (req, res) {
