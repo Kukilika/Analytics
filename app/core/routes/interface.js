@@ -46,75 +46,40 @@ module.exports = (app) => {
         var id = req.query.id;
         var browser = req.query.browser;
 
-        if (id == null || Object.keys(id).length === 0) { // Check if giver parameters are valid
-            console.log('Invalid id');
-            //res.json({status:"NotOk"});
-        } else if (browser == null || Object.keys(browser).length === 0) {
-            console.log('Invalid browser name!');
-            //res.json({status:"NotOk"});
-        } else {
-            userData.findById(id, function (error, result) { // Check if record exists
-                if (error) {
-                    console.log(error);
-                    // res.json({status:"NotOk"});
-                } else {
-                    userData.updateOne({
-                        "_id": id
-                    }, {
-                        $set: {
-                            browserName: browser
-                        }
-                    }, function (error, result) { // Update the record
-                        if (error)
-                            console.log(error);
-                        // res.json({status:"NotOk"});
-                    })
+        if (!id || !browser) {
+            res.json({ status: "NotOk" });
+        } 
+        else {
+            userData.updateOne({
+                "_id": id
+            }, {
+                $set: {
+                    browserName: browser
                 }
-            })
+            }, function (error, result) {
+                if (error) {
+                    res.json({ status: "NotOk" });
+                }
+                else {
+                    res.json({ status: "Ok" });
+                }
+            });
         }
-
-        console.log('Obj has been updated');
-        res.json({
-            status: "Ok"
-        });
-
     });
 
     app.get('/delete', function (req, res) {
         let id = req.query.id;
         let ok = 1;
 
-        userData.findById(id, function (error, object) { // Check if record exists
-            if (error) {
-                ok = 0;
-                res.json({
-                    status: "NotOk"
-                });
-                //console.log(error);
-            } else {
-                userData.deleteOne({
-                    _id: id
-                }, function (error) { // Delete the record from db
-                    if (error)
-                        if (ok == 1) {
-                            ok = 0;
-                            res.json({
-                                status: "Ok"
-                            });
-                        }
-                    //console.log(error);
-                })
+        userData.deleteOne({
+            _id: id
+        }, err => {
+            if(err) {
+                res.json({ status: "NotOk" });
             }
-        })
-        if (ok == 1) {
-            res.json({
-                status: "Ok"
-            });
-            //console.log('Obj has been deleted');
-        }
-        //res.end();
-        res.json({
-            status: "Ok"
+            else {
+                res.json({ status: "Ok" });
+            }
         });
     });
 };
