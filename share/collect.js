@@ -1,7 +1,7 @@
 let collected = {};
 
- window.addEventListener("load",()=>{
-    collected={
+ let collectOnLoad = () => {
+    collected = {
         timeOpened: new Date(),
         timezone: new Date().getTimezoneOffset()/60,
         pageon: window.location.pathname,
@@ -26,22 +26,24 @@ let collected = {};
         sizeAvailH: screen.availHeight,
         scrColorDepth: screen.colorDepth,
         scrPixelDepth: screen.pixelDepth,
-        };
+    };
 
-        fetch("http://localhost:8080/collect", {
-            method:"post",
-            body:JSON.stringify(collected),
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-        })
-        .then(res=>{
-            return res.json();
-        })
-        .then(data=>{
-            console.log(data);
-        })
-        .catch(console.error);
- })
+    fetch("http://localhost:8080/collect", {
+        method:"post",
+        body:JSON.stringify(collected),
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+    })
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        console.log(data);
+    })
+    .catch(console.error);
+ };
+
+ window.addEventListener("load", collectOnLoad());

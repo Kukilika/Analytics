@@ -1,14 +1,14 @@
 <html lang="en">
 <head>
   <title>View Charts</title>
-  <% include partials/head %>
+  <%- include('partials/head') %>
 </head>
 <body style = "background-color: #161616">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="logo" src="static/logo.png">
+            <img class="logo" src="/share/static/logo.png">
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
@@ -141,7 +141,7 @@ var myPieChart2 = new Chart(ctx2,{
 </script>
 
 
-<% include partials/footer %>
+<%- include('partials/footer') %>
 
 </body>
 </html>
