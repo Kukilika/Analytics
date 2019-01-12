@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 module.exports = {
     "collect1": {
         "timeOpened": "2018-11-13T21:47:40.322Z",

@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 const assert = require('chai').assert;
 const fetch = require('node-fetch');
 const testData = require('./testData');
