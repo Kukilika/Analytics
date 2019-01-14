@@ -4,7 +4,7 @@
 const path = require('path');
 
 module.exports = {
-    port: 8080,
+    port: 80,
     staticPath: path.join(__dirname, '../../share'),
     viewsPath: path.join(__dirname, '../views')
 };
