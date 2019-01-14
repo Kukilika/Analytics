@@ -28,7 +28,7 @@ let collected = {};
         scrPixelDepth: screen.pixelDepth,
     };
 
-    fetch("http://159.65.118.109:8080/collect", {
+    fetch("http://andi-analytics.tk/collect", {
         method:"post",
         body:JSON.stringify(collected),
         credentials: 'same-origin',
